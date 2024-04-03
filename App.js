@@ -2,6 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import { Button, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Header from './app/components/Header';
 import Product from './app/components/Product';
+import { Provider } from 'react-redux';
+import store from './app/components/redux/store ';
 
 export default function App() {
 
@@ -26,6 +28,7 @@ export default function App() {
     }
   ]
   return (
+    <Provider store={store}>
     <View style={styles.container}>
       <Header />
       <ScrollView>
@@ -39,6 +42,7 @@ export default function App() {
       {/* <Text>UI for add to cart with Redux</Text> */}
       <StatusBar style="auto" />
     </View>
+    </Provider>
   );
 }
 
