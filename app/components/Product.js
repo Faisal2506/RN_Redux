@@ -5,10 +5,10 @@ import { addToCart } from './redux/action'
 
 
 const Product = ({ item }) => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const handleAddToCart = (item) => {
     console.log("called", item);
-    // dispatch(addToCart)
+    dispatch(addToCart(item))
   }
   return (
     <View style={{ alignItems: "center", borderBottomColor: "orange", borderBottomWidth: 1, paddingBottom: 10 }}>
