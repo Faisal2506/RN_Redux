@@ -1,27 +1,34 @@
 import { StyleSheet, Text, View, Image, Button } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addToCart } from './redux/action'
+import { addToCart, removeFromCart } from './redux/action'
 
 const Product = ({ item }) => {
   const dispatch = useDispatch();
-  const cartItems = useSelector((state)=>state.reducer);
-  const [isAdded,setIsAdded] = useState(false);
+  const cartItems = useSelector((state) => state.reducer);
+  const [isAdded, setIsAdded] = useState(false);
 
   const handleAddToCart = (item) => {
-    console.log("called", item);
+    // console.log("called", item);
     dispatch(addToCart(item))
   }
 
-  useEffect(()=>{
-    if(cartItems && cartItems.length){
-      cartItems.forEach((element)=>{
-        if(element.name==item.name){
-          setIsAdded(true);
-        }
-      })
+  const handleRemoveFromCart = (item) => {
+    console.log(item);
+    dispatch(removeFromCart(item.name))
+  }
+
+  useEffect(() => {
+    let result = cartItems.filter((element) => {
+      return element.name === item.name
+    });
+    if (result.length) {
+      setIsAdded(true);
     }
-  },[cartItems])
+    else {
+      setIsAdded(false);
+    }
+  }, [cartItems])
 
   return (
     <View style={{ alignItems: "center", borderBottomColor: "orange", borderBottomWidth: 1, paddingBottom: 10 }}>
@@ -33,9 +40,9 @@ const Product = ({ item }) => {
       />
       {
         isAdded ?
-      <Button title='Remove from cart' onPress={()=>handleAddToCart(item)} />
-        :
-        <Button title='Add to cart' onPress={()=>handleAddToCart(item)} />
+          <Button title='Remove from cart' onPress={() => handleRemoveFromCart(item)} />
+          :
+          <Button title='Add to cart' onPress={() => handleAddToCart(item)} />
       }
     </View>
   )

@@ -1,58 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
-import { Button, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
-import Header from './app/components/Header';
-import Product from './app/components/Product';
 import { Provider } from 'react-redux';
 import store from './app/components/redux/store ';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import ProductWrapper from './app/Screen/ProductWrapper';
+import UserList from './app/Screen/UserList';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-
-  const products =[
-    {
-      name:"Samsung Mobile",
-      color:"white",
-      price:30000,
-      image:require('./assets/mobile_icon.webp')
-    },
-    {
-      name:"Apple Mobile",
-      color:"black",
-      price:130000,
-      image:require('./assets/mobile_icon.webp')
-    },
-    {
-      name:"Nokia Mobile",
-      color:"green",
-      price:20000,
-      image:require('./assets/mobile_icon.webp')
-    }
-  ]
   return (
+    <NavigationContainer>
     <Provider store={store}>
-    <View style={styles.container}>
-      <Header />
-      <ScrollView>
-      {
-        products.map((item)=>
-          <Product item={item} />
-        )
-      }
-      </ScrollView>
-      
-      {/* <Text>UI for add to cart with Redux</Text> */}
-      <StatusBar style="auto" />
-    </View>
+      <Stack.Navigator>
+        <Stack.Screen name='Home' component={ProductWrapper}/>
+        <Stack.Screen name='User' component={UserList}/>
+      </Stack.Navigator>
     </Provider>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop:20,
-    paddingHorizontal:20
-    // backgroundColor: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
-  },
-});
