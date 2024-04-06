@@ -42,8 +42,11 @@ const Product = ({ item }) => {
         isAdded ?
           <Button title='Remove from cart' onPress={() => handleRemoveFromCart(item)} />
           :
-          <Button title='Add to cart' onPress={() => handleAddToCart(item)} />
+          null
+
       }
+          <Button title='Add to cart' onPress={() => handleAddToCart(item)} />
+
     </View>
   )
 }
