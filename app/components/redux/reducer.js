@@ -9,11 +9,19 @@ export const reducer = (state = initialState, action) => {
         ...state,
         action.data
       ];
+    // case REMOVE_FROM_CART:
+    //   let result = state.filter(item=>{
+    //     return item.name!=action.data
+    //   })
+    //   return [...result]
     case REMOVE_FROM_CART:
-      let result = state.filter(item=>{
-        return item.name!=action.data
-      })
-      return [...result]
+      const index = state.findIndex(item => item.name === action.data);
+      if (index !== -1) {
+        const updatedState = [...state];
+        updatedState.splice(index, 1); // Remove one unit of the item
+        return updatedState;
+      }
+      return state;
     default:
       return state;
   }
